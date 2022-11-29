@@ -1,13 +1,8 @@
 ﻿using Microsoft.JSInterop;
+using MuffinCTF.Application.Abstractions;
 
 namespace MuffinCTF.Application.Services
 {
-    public interface ICookie
-    {
-        public Task SetValue(string key, string value, int? days = null);
-        public Task<string> GetValue(string key, string def = "");
-    }
-
     public class Cookie : ICookie
     {
         readonly IJSRuntime JSRuntime;
@@ -33,8 +28,8 @@ namespace MuffinCTF.Application.Services
             var vals = cValue.Split(';');
             foreach (var val in vals)
                 if (!string.IsNullOrEmpty(val) && val.IndexOf('=') > 0)
-                    if (val.Substring(0, val.IndexOf('=')).Trim().Equals(key, StringComparison.OrdinalIgnoreCase))
-                        return val.Substring(val.IndexOf('=') + 1);
+                    if (val[..val.IndexOf('=')].Trim().Equals(key, StringComparison.OrdinalIgnoreCase))
+                        return val[(val.IndexOf('=') + 1)..];
             return def;
         }
 
