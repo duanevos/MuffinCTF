@@ -1,0 +1,20 @@
+﻿@inject IUserService UserService
+@inject NavigationManager NavigationManager
+@inject ICookie cookie
+
+@page "/challenges"
+
+<h3>Challenges</h3>
+
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var userCookie = await cookie.GetValue("token");
+            if (userCookie == string.Empty) NavigationManager.NavigateTo("/");
+            if (await UserService.ValidateToken(userCookie) == null) NavigationManager.NavigateTo("/");
+        }
+    }
+}
