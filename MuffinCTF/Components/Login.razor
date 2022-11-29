@@ -6,23 +6,23 @@
     <div class="text-stone-900 font-black text-center select-none type">
         <h1>
             <pre style="box-shadow: none;" class="bg-transparent">
-███████╗██╗███╗░░██╗██████╗░  ████████╗██╗░░██╗███████╗  ███╗░░░███╗██╗░░░██╗███████╗███████╗██╗███╗░░██╗
-██╔════╝██║████╗░██║██╔══██╗  ╚══██╔══╝██║░░██║██╔════╝  ████╗░████║██║░░░██║██╔════╝██╔════╝██║████╗░██║
-█████╗░░██║██╔██╗██║██║░░██║  ░░░██║░░░███████║█████╗░░  ██╔████╔██║██║░░░██║█████╗░░█████╗░░██║██╔██╗██║
-██╔══╝░░██║██║╚████║██║░░██║  ░░░██║░░░██╔══██║██╔══╝░░  ██║╚██╔╝██║██║░░░██║██╔══╝░░██╔══╝░░██║██║╚████║
-██║░░░░░██║██║░╚███║██████╔╝  ░░░██║░░░██║░░██║███████╗  ██║░╚═╝░██║╚██████╔╝██║░░░░░██║░░░░░██║██║░╚███║
-╚═╝░░░░░╚═╝╚═╝░░╚══╝╚═════╝░  ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝╚═╝░░╚══╝
-░█████╗░████████╗███████╗
-██╔══██╗╚══██╔══╝██╔════╝
-██║░░╚═╝░░░██║░░░█████╗░░
-██║░░██╗░░░██║░░░██╔══╝░░
-╚█████╔╝░░░██║░░░██║░░░░░
-░╚════╝░░░░╚═╝░░░╚═╝░░░░░
+░█████╗░░█████╗░██████╗░████████╗██╗░░░██╗██████╗░███████╗  ████████╗██╗░░██╗███████╗
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██╔══██╗██╔════╝  ╚══██╔══╝██║░░██║██╔════╝
+██║░░╚═╝███████║██████╔╝░░░██║░░░██║░░░██║██████╔╝█████╗░░  ░░░██║░░░███████║█████╗░░
+██║░░██╗██╔══██║██╔═══╝░░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░  ░░░██║░░░██╔══██║██╔══╝░░
+╚█████╔╝██║░░██║██║░░░░░░░░██║░░░╚██████╔╝██║░░██║███████╗  ░░░██║░░░██║░░██║███████╗
+░╚════╝░╚═╝░░╚═╝╚═╝░░░░░░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝
 
+███╗░░░███╗██╗░░░██╗███████╗███████╗██╗███╗░░██╗  
+████╗░████║██║░░░██║██╔════╝██╔════╝██║████╗░██║  
+██╔████╔██║██║░░░██║█████╗░░█████╗░░██║██╔██╗██║  
+██║╚██╔╝██║██║░░░██║██╔══╝░░██╔══╝░░██║██║╚████║  
+██║░╚═╝░██║╚██████╔╝██║░░░░░██║░░░░░██║██║░╚███║  
+╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░╚═╝░░░░░╚═╝╚═╝░░╚══╝  
             </pre>
         </h1>
     </div>
-    <div class="w-full max-w-xs">
+    <div class="w-full max-w-xs mt-5">
         <form class="window">
             <div class="title-bar">
                 <div class="title-bar-text">
@@ -55,8 +55,8 @@
                 </div>
             </div>
         </form>
-        <p class="text-white mt-2 text-center">
-            Brought to you by Reckless Muffins
+        <p class="mt-2 text-center text-stone-900 font-monospace font-bold">
+            By the Reckless Muffins
         </p>
     </div>
 </div>
@@ -67,7 +67,18 @@
     private string password = "";
     string errorMsg = "";
 
-    private bool ValidateInput(){
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var userCookie = await cookie.GetValue("token");
+            if (userCookie == string.Empty) return;
+            if (await UserService.ValidateToken(userCookie) != null) NavigationManager.NavigateTo("/challenges");
+        }
+    }
+
+    private bool ValidateInput()
+    {
         if (username == "" || password == "")
         {
             errorMsg = "Please enter a username and password";
@@ -79,7 +90,8 @@
     private async Task OnRegisterClick()
     {
         if (!ValidateInput()) return;
-        if(!await UserService.Register(username, password)){
+        if (!await UserService.Register(username, password))
+        {
             errorMsg = "Failed to register, try again.";
             return;
         }
@@ -90,7 +102,8 @@
     private async Task OnLoginClick()
     {
         if (!ValidateInput()) return;
-        if (!await UserService.Login(username, password)){
+        if (!await UserService.Login(username, password))
+        {
             errorMsg = "Failed to login, try again.";
             return;
         }
