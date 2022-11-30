@@ -10,8 +10,6 @@ namespace MuffinCTF.Application.Abstractions
         Task<bool> Login(string username, string password);
         Task<bool> Register(string username, string password);
         Task<bool> SetToken(string username, string token);
-        Task<User?> ValidateToken(string token);
-
-
+        Task<User?> ValidateToken(string token, string username);
     }
 }

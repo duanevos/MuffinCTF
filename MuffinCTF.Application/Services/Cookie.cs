@@ -5,7 +5,7 @@ namespace MuffinCTF.Application.Services
 {
     public class Cookie : ICookie
     {
-        readonly IJSRuntime JSRuntime;
+        private readonly IJSRuntime JSRuntime;
         string expires = "";
 
         public Cookie(IJSRuntime jsRuntime)
@@ -35,6 +35,7 @@ namespace MuffinCTF.Application.Services
 
         private async Task SetCookie(string value)
         {
+            
             await JSRuntime.InvokeVoidAsync("eval", $"document.cookie = \"{value}\"");
         }
 

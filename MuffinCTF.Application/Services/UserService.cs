@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using MuffinCTF.Application.Abstractions;
 using MuffinCTF.Database;
 using MuffinCTF.Domain;
+using System.Net;
 
 namespace MuffinCTF.Application.Services
 {
@@ -43,10 +45,11 @@ namespace MuffinCTF.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task<User?> ValidateToken(string token)
+        public async Task<User?> ValidateToken(string token, string username)
         {
-            return await _context.Users.Where(x => x.Token == token).FirstOrDefaultAsync();
-            
+            var result = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            if (result != null && result.Token.Equals(token)) return result;
+            return null;
         }
 
         public async Task<bool> Login(string username, string password)
@@ -56,7 +59,6 @@ namespace MuffinCTF.Application.Services
             {
                 if (BCrypt.Net.BCrypt.Verify(password, result.Password))
                 {
-                    
                     await _context.SaveChangesAsync();
                     return true;
                 }

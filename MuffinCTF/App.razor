@@ -1,34 +1,11 @@
 ﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
         <PageTitle>404 - Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <div class="flex items-center justify-center h-screen">
-                <div class="window w-fit h-fit">
-                    <div class="title-bar">
-                        <div class="title-bar-text">
-                            404 - Why are you here?
-                        </div>
-                    </div>
-                    <div class="window-body">
-                        <div class="font-black">
-                            <pre>
- ,adPPYba, 8b,dPPYba, 8b,dPPYba,  ,adPPYba,  8b,dPPYba,  
-a8P_____88 88P'   "Y8 88P'   "Y8 a8"     "8a 88P'   "Y8  
-8PP""""""" 88         88         8b       d8 88          
-"8b,   ,aa 88         88         "8a,   ,a8" 88          
- `"Ybbd8"' 88         88          `"YbbdP"'  88          
-                            </pre>
-                            <p class="mt-2">
-                                back to <a href="/" class="underline text-blue-700">home</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Error />
         </LayoutView>
     </NotFound>
 </Router>

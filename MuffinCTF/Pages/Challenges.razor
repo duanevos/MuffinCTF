@@ -3,51 +3,73 @@
 @inject ICookie cookie
 
 @page "/challenges"
+@using MuffinCTF.Domain
 
-<div class="flex justify-center items-center h-screen"> 
-    <div class="window h-1/2 w-1/2">
-        <div class="title-bar">
-            <div class="title-bar-text">
-                Challenges
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <div class="flex justify-center items-center h-screen">
+        <div class="window h-1/2 w-1/2">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    Challenges
+                </div>
+            </div>
+            <div class="window-body flex flex-wrap place-content-between font-bold">
+                <button class="w-24">
+                    Audiography
+                </button>
+                <button class="w-24">
+                    Cryptography
+                </button>
+                <button class="w-24">
+                    Reversing
+                </button>
+                <button class="w-24">
+                    Pwn
+                </button>
+                <button class="w-24">
+                    OSINT
+                </button>
+                <button class="w-24">
+                    Steganography
+                </button>
+                <button class="w-24">
+                    Web
+                </button>
             </div>
         </div>
-        <div class="window-body flex flex-wrap place-content-between font-bold">
-            <button class="w-24">
-                Audiography
-            </button>
-            <button class="w-24">
-                Cryptography
-            </button>
-            <button class="w-24">
-                Reversing
-            </button>
-            <button class="w-24">
-                Pwn
-            </button>
-            <button class="w-24">
-                OSINT
-            </button>
-            <button class="w-24">
-                Steganography
-            </button>
-            <button class="w-24">
-                Web
-            </button>
-        </div>
     </div>
-</div>
-
-
+}
 
 
 @code {
+    private bool loading = true;
+    private User User { get; set; }
+
+    //Has to be OnAfterRenderAsync
+    //JavaScript interop calls can only be performed during the OnAfterRenderAsync lifecycle method.
+    //Using JSInterop call for cookies.
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            var userCookie = await cookie.GetValue("token");
-            if (userCookie == string.Empty) NavigationManager.NavigateTo("/");
-            if (await UserService.ValidateToken(userCookie) == null) NavigationManager.NavigateTo("/");
+            var tokenCookie = await cookie.GetValue("token");
+            var usernameCookie = await cookie.GetValue("user");
+            var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
+            if (tokenCookie != string.Empty ||
+                usernameCookie != string.Empty ||
+                user is not null)
+            {
+                loading = false;
+                User = user;
+                StateHasChanged();
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/");
+            }
         }
     }
 }
