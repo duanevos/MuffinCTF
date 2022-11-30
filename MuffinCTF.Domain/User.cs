@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MuffinCTF.Domain.Models;
 
 namespace MuffinCTF.Domain
 {
@@ -10,6 +11,6 @@ namespace MuffinCTF.Domain
         public string Password { get; set; }
         public int Points { get; set; } = 0;
         public string Token { get; set; } = "";
-        public List<Challenge> Completed { get; set; } = new();
+        public ICollection<CompletedChallenges> CompletedChallenges { get; set; }
     }
 }

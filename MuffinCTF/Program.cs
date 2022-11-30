@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MuffinCTF.Application.Abstractions;
 using MuffinCTF.Application.Services;
 using MuffinCTF.Database;
+using MuffinCTF.Domain;
+using MuffinCTF.Domain.Enum;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.AddDbContext<CTFContext>(options =>
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICookie, Cookie>();
+builder.Services.AddScoped<CCService>();
 
 var app = builder.Build();
 

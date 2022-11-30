@@ -1,0 +1,55 @@
+﻿<div class="flex flex-wrap place-content-between text-base font-semibold">
+    <button @onclick=@(() => TabHandler("Audiography")) 
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Audiography") ? activeColor : "" )
+    ">
+        Audiography
+    </button>
+    <button @onclick=@(() => TabHandler("Cryptography")) 
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Cryptography") ? activeColor : "" )
+    ">
+        Cryptography
+    </button>
+    <button @onclick=@(() => TabHandler("Reversing"))
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Reversing") ? activeColor : "" )
+     ">
+        Reversing
+    </button>
+    <button @onclick=@(() => TabHandler("Pwn"))
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Pwn") ? activeColor : "" )
+    ">
+        Pwn
+    </button>
+    <button @onclick=@(() => TabHandler("OSINT")) 
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("OSINT") ? activeColor : "" )
+    ">
+        OSINT
+    </button>
+    <button @onclick=@(() => TabHandler("Steganography"))
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Steganography") ? activeColor : "" )
+    ">
+        Steganography
+    </button>
+    <button @onclick=@(() => TabHandler("Web")) 
+            class="w-36 h-12
+            @(Challenges.showCategory.Equals("Web") ? activeColor : "" )
+    ">
+        Web
+    </button>
+</div>
+
+@code {
+    [CascadingParameter]
+    public Challenges Challenges { get; set; }
+    private string activeColor = "bg-blue-800 text-white";
+
+    private void TabHandler(string category)
+    {
+        Challenges.showCategory = category;
+    }
+}

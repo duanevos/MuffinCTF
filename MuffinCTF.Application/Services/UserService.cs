@@ -34,10 +34,11 @@ namespace MuffinCTF.Application.Services
         {
             throw new NotImplementedException();
         }
-
-        private async Task UpdateUserScore(int id)
+        
+        public async Task UpdateUserScore(User user)
         {
-            throw new NotImplementedException();
+            user.Points += 50;
+            await _context.SaveChangesAsync();
         }
 
         Task<User?> IUserService.GetUser(int id)
