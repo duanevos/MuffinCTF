@@ -4,9 +4,7 @@
 @inject CCService CCService
 @inject IChallengeService ChallengeService
 @using MuffinCTF.Components.Challenges
-
 @page "/challenges"
-@using MuffinCTF.Domain
 
 @if (loading)
 {
@@ -14,43 +12,31 @@
 }
 else
 {
-    <div class="flex justify-center items-center h-screen">
-        <div class="window h-fit w-4/6">
-            <div class="title-bar">
-                <div class="title-bar-text">
-                    Challenges
-                </div>
-            </div>
-            <div class="window-body">
-                <div class="">
-                    <CascadingValue Value="this">
-                        @if (completedFirstChallenge) {
-                            <ButtonGroup />
-                        } else {
-                            <FirstChallenge />
-                        }
-                    </CascadingValue>
-                </div>
-            </div>
-        </div>
-    </div>
+    <CascadingValue Value="this">
+    @if(!completedFirstChallenge){
+        <FirstChallenge />
+    } else {
+        @if(showIcons){
+            <Icons />
+        } else {
+            <ChallengeCard />
+        }
+    }
+    </CascadingValue>
 }
-
 
 @code {
     //Used for conditional rendering
     private bool loading = true;
     private bool completedFirstChallenge = false;
     public string showCategory = "";
-    
+    public bool showIcons = true;
+
     //Logged in User
     private User? User { get; set; } = null;
     
     //Challenges To Complete
     private List<Challenge> challenges { get; set; } = new List<Challenge>();
-
-    
-    
 
     //Has to be OnAfterRenderAsync
     //JavaScript interop calls can only be performed during the OnAfterRenderAsync lifecycle method.
@@ -61,18 +47,16 @@ else
             var tokenCookie = await cookie.GetValue("token");
             var usernameCookie = await cookie.GetValue("user");
             var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
-            if (tokenCookie != string.Empty || usernameCookie != string.Empty || user is not null)
+            if (tokenCookie != string.Empty && usernameCookie != string.Empty && user is not null)
             {
-                
                 completedFirstChallenge = await CCService.CheckIfCompleted(1, user!.Id);
                 loading = false;
                 User = user;
-                
                 StateHasChanged();
             }
             else
             {
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/login");
             }
         }
     }
@@ -82,6 +66,20 @@ else
         await CCService.AddCompletedChallenge(challenge.Id, User!.Id);
         await UserService.UpdateUserScore(User);
         completedFirstChallenge = true;
+        StateHasChanged();
+    }
+
+    public void OnDblClick(string category)
+    {
+        showCategory = category;
+        showIcons = !showIcons;
+        StateHasChanged();
+    }
+    
+    public void OnCloseClick()
+    {
+        showCategory = "";
+        showIcons = !showIcons;
         StateHasChanged();
     }
 }

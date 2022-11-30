@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MuffinCTF.Domain.Models;
 
-namespace MuffinCTF.Domain
+namespace MuffinCTF.Domain.Models
 {
     public class User
     {

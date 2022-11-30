@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MuffinCTF.Application.Abstractions;
 using MuffinCTF.Database;
-using MuffinCTF.Domain;
+using MuffinCTF.Domain.Models;
 
 namespace MuffinCTF.Application.Services
 {

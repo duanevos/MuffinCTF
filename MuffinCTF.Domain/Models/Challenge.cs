@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MuffinCTF.Domain.Enum;
-using MuffinCTF.Domain.Models;
 
-namespace MuffinCTF.Domain
+namespace MuffinCTF.Domain.Models
 {
     public class Challenge
     {

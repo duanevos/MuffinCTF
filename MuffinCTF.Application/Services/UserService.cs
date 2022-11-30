@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using MuffinCTF.Application.Abstractions;
 using MuffinCTF.Database;
-using MuffinCTF.Domain;
+using MuffinCTF.Domain.Models;
 using System.Net;
 
 namespace MuffinCTF.Application.Services

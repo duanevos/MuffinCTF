@@ -17,12 +17,6 @@
      ">
         Reversing
     </button>
-    <button @onclick=@(() => TabHandler("Pwn"))
-            class="w-36 h-12
-            @(Challenges.showCategory.Equals("Pwn") ? activeColor : "" )
-    ">
-        Pwn
-    </button>
     <button @onclick=@(() => TabHandler("OSINT")) 
             class="w-36 h-12
             @(Challenges.showCategory.Equals("OSINT") ? activeColor : "" )

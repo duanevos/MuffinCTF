@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MuffinCTF.Domain;
 using MuffinCTF.Domain.Models;
 
 namespace MuffinCTF.Database
@@ -14,7 +13,6 @@ namespace MuffinCTF.Database
         : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CompletedChallenges>()
@@ -29,11 +27,6 @@ namespace MuffinCTF.Database
                 .HasOne(u => u.User)
                 .WithMany(cc => cc.CompletedChallenges)
                 .HasForeignKey(u => u.UserId);
-            
         }
-
-
-
-        
     }
 }

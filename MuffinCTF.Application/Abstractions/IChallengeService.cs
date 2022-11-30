@@ -1,4 +1,4 @@
-﻿using MuffinCTF.Domain;
+﻿using MuffinCTF.Domain.Models;
 
 namespace MuffinCTF.Application.Abstractions
 {
