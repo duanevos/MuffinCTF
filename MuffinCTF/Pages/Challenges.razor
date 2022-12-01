@@ -1,7 +1,7 @@
 ﻿@inject IUserService UserService
 @inject NavigationManager NavigationManager
 @inject ICookie cookie
-@inject CCService CCService
+@inject ICCService CCService
 @inject IChallengeService ChallengeService
 @using MuffinCTF.Components.Challenges
 @page "/challenges"
@@ -13,15 +13,23 @@
 else
 {
     <CascadingValue Value="this">
-    @if(!completedFirstChallenge){
-        <FirstChallenge />
-    } else {
-        @if(showIcons){
-            <Icons />
-        } else {
-            <ChallengeCard />
+        @if (!completedFirstChallenge)
+        {
+            <FirstChallenge />
         }
-    }
+        else
+        {
+            @if (showIcons)
+            {
+                <Icons />
+            }
+            else
+            {
+                <div class="overflow-hidden">
+                    <CategoryWindow />
+                </div>
+            }
+        }
     </CascadingValue>
 }
 
@@ -33,8 +41,8 @@ else
     public bool showIcons = true;
 
     //Logged in User
-    private User? User { get; set; } = null;
-    
+    public User? User { get; set; } = null;
+
     //Challenges To Complete
     private List<Challenge> challenges { get; set; } = new List<Challenge>();
 
@@ -43,26 +51,15 @@ else
     //Using JSInterop call for cookies.
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if(firstRender){
-            var tokenCookie = await cookie.GetValue("token");
-            var usernameCookie = await cookie.GetValue("user");
-            var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
-            if (tokenCookie != string.Empty && usernameCookie != string.Empty && user is not null)
-            {
-                completedFirstChallenge = await CCService.CheckIfCompleted(1, user!.Id);
-                loading = false;
-                User = user;
-                StateHasChanged();
-            }
-            else
-            {
-                NavigationManager.NavigateTo("/login");
-            }
+        if (firstRender)
+        {
+            await HandleCookie();
         }
     }
 
-    public async void OnFlagCorrectSubmit(Challenge challenge)
+    public async Task OnFlagCorrectSubmit(Challenge challenge)
     {
+        await HandleCookie();
         await CCService.AddCompletedChallenge(challenge.Id, User!.Id);
         await UserService.UpdateUserScore(User);
         completedFirstChallenge = true;
@@ -75,11 +72,35 @@ else
         showIcons = !showIcons;
         StateHasChanged();
     }
-    
-    public void OnCloseClick()
+
+    public async Task OnCloseClick()
     {
+        await HandleCookie();
         showCategory = "";
         showIcons = !showIcons;
         StateHasChanged();
+    }
+
+    private async Task HandleCookie()
+    {
+        var tokenCookie = await cookie.GetValue("token");
+        var usernameCookie = await cookie.GetValue("user");
+        var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
+        
+        if (tokenCookie != string.Empty &&
+            usernameCookie != string.Empty &&
+            user is not null
+            )
+        {
+            completedFirstChallenge = await CCService.CheckIfCompleted(1, user!.Id);
+            loading = false;
+            User = user;
+            StateHasChanged();
+        }
+        
+        else
+        {
+            NavigationManager.NavigateTo("/login");
+        }
     }
 }

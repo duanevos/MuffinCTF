@@ -1,0 +1,63 @@
+﻿@using MuffinCTF.Domain.Enum
+@inject ICCService CCService
+@inject IChallengeService ChallengeService
+<PageTitle>&#128225; @Challenges.showCategory </PageTitle>
+
+<div class="flex items-center justify-center h-screen w-screen overflow-auto">
+    <div class="window max-h-fit w-1/2">
+        <div class="title-bar w-full flex flex-row  select-none">
+            <div class="title-bar-text">
+                C:\Users\Muffin\Desktop\@Challenges.showCategory.ToLower()<span>.exe</span>
+            </div>
+            <div class="title-bar-controls bg-neutral-300">
+                <button @onclick=@(() => Challenges.OnCloseClick()) aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-content gap-4 w-full flex flex-wrap flex-row justify-center m-2">
+            @foreach (Challenge c in challengeList)
+            {
+                <button class="h-10 font-bold text-base" @onclick=@(() => OnChallengeClick(c))>C-@c.Name</button>
+            }
+            @if (!string.IsNullOrEmpty(selectedChallenge))
+            {
+                <CascadingValue Value="Challenges">
+                    <ChallengeTab showHintId="showHintId" challenge="challengeList.First(x => x.Name == selectedChallenge)"/>
+                </CascadingValue>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public Challenges Challenges { get; set; }
+    public int showHintId { get; set; } = 0;
+    private List<Challenge> challengeList { get; set; } = new();
+    private string selectedChallenge { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var challengesByCategory = await ChallengeService.GetChallengesByCategory((Category)Enum.Parse(typeof(Category), Challenges.showCategory.ToLower()));
+        if (challengesByCategory == null) return;
+
+        var completedChallenges = await CCService.GetCompletedChallenges(Challenges.User.Id);
+        if (completedChallenges == null) challengeList = challengesByCategory;
+        else
+        {
+            foreach (Challenge c in challengesByCategory)
+            {
+                if (!completedChallenges.Any(x => x.ChallengeId == c.Id))
+                {
+                    challengeList.Add(c);
+                }
+            }
+        }
+        challengeList = challengeList.OrderBy(x => x.Name).ToList();
+    }
+
+    private void OnChallengeClick(Challenge c)
+    {
+        selectedChallenge = c.Name;
+        showHintId = 0;
+    }
+}

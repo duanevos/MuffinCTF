@@ -8,12 +8,12 @@ namespace MuffinCTF.Domain.Enum
 {
     public enum Category
     {
-        First_Challenge = 1,
-        Audiography = 2,
-        Cryptography = 3,
-        OSINT = 4,
-        Reversing = 5,
-        Steganography = 6,
-        Web = 7
+        first = 1,
+        audiography = 2,
+        cryptography = 3,
+        osint = 4,
+        reversing = 5,
+        steganography = 6,
+        web = 7
     }
 }

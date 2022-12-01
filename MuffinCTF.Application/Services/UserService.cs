@@ -34,7 +34,7 @@ namespace MuffinCTF.Application.Services
         {
             throw new NotImplementedException();
         }
-        
+
         public async Task UpdateUserScore(User user)
         {
             user.Points += 50;
@@ -48,51 +48,47 @@ namespace MuffinCTF.Application.Services
 
         public async Task<User?> ValidateToken(string token, string username)
         {
-            var result = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-            if (result != null && result.Token.Equals(token)) return result;
-            return null;
+            var result = await _context.Users.FirstOrDefaultAsync(x => x.Token == token);
+
+            if (result == null) return null;
+            if (result.Username != username) return null;
+
+            return result;
         }
 
         public async Task<bool> Login(string username, string password)
         {
             var result = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            if (result == null) return false;
+            return BCrypt.Net.BCrypt.Verify(password, result.Password);
+        }
+
+    public async Task<bool> SetToken(string username, string token)
+    {
+        {
+            var result = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
             if (result != null)
             {
-                if (BCrypt.Net.BCrypt.Verify(password, result.Password))
-                {
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
+                result.Token = token;
+                await _context.SaveChangesAsync();
+                return true;
             }
             return false;
         }
-
-        public async Task<bool> SetToken(string username, string token)
-        {
-            {
-                var result = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-                if (result != null)
-                {
-                    result.Token = token;
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        public async Task<bool> Register(string username, string password)
-        {
-            if (await _context.Users.AnyAsync(x => x.Username == username)) return false;
-            var user = new User
-            {
-                Username = username,
-                Password = BCrypt.Net.BCrypt.HashPassword(password)
-            };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return true;
-        }
     }
+
+    public async Task<bool> Register(string username, string password)
+    {
+        if (await _context.Users.AnyAsync(x => x.Username == username)) return false;
+        var user = new User
+        {
+            Username = username,
+            Password = BCrypt.Net.BCrypt.HashPassword(password)
+        };
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+}
 }
 

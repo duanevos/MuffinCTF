@@ -18,7 +18,8 @@ builder.Services.AddDbContext<CTFContext>(options =>
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICookie, Cookie>();
-builder.Services.AddScoped<CCService>();
+builder.Services.AddScoped<ICCService, CCService>();
+builder.Services.AddScoped<SeedDatabase>();
 
 //Seed database
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
@@ -26,18 +27,11 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<CTFContext>();
     context.Database.EnsureCreated();
-    if (!context.Challenges.Any())
+    if(!context.Challenges.Any()) 
     {
-        context.Challenges.Add(new Challenge
-        {
-            Name = "MuffinCTF",
-            Description = "Welcome",
-            Points = 50,
-            Category = Category.First_Challenge,
-            Flag = "Muffin{Lets_Get_Started}"
-        });
+        var seed = services.GetRequiredService<SeedDatabase>();
+        await seed.AddToDatabase();
     }
-    context.SaveChanges();
 }
 
 
