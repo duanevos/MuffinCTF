@@ -4,6 +4,7 @@ using Microsoft.JSInterop;
 using MuffinCTF.Application.Abstractions;
 using MuffinCTF.Database;
 using MuffinCTF.Domain.Models;
+using System.ComponentModel;
 using System.Net;
 
 namespace MuffinCTF.Application.Services
@@ -22,17 +23,21 @@ namespace MuffinCTF.Application.Services
             var result = await _context.Users.FindAsync(id);
             return result;
         }
+        
+        public List<User>? GetAllUsers()
+        {
+            if (_context.Users.Any())
+            {
+                return _context.Users.ToList();
+            }
+            return null;
+        }
 
         public async Task<int> GetUserScore(int id)
         {
             var result = await _context.Users.FindAsync(id);
             if (result == null) return 0;
             return result.Points;
-        }
-
-        public async Task UpdateUserChallenges(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateUserScore(User user)

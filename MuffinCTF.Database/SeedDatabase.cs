@@ -28,7 +28,6 @@ namespace MuffinCTF.Database
             {
                 Name = "FirstChallenge",
                 Description = "Welcome",
-                Points = 25,
                 Category = Category.first,
                 Flag = "Muffin{Lets_Get_Started}"
             };
@@ -36,7 +35,6 @@ namespace MuffinCTF.Database
             {
                 Name = "1",
                 Description = "",
-                Points = 50,
                 Category = Category.web,
                 Flag = "Muffin{897ja}",
                 Hints = new List<Hint>()
@@ -55,7 +53,6 @@ namespace MuffinCTF.Database
             {
                 Name = "2",
                 Description = "",
-                Points = 50,
                 Category = Category.web,
                 Flag = "Muffin{897ja}",
                 Hints = new List<Hint>()
@@ -74,7 +71,6 @@ namespace MuffinCTF.Database
             {
                 Name = "3",
                 Description = "",
-                Points = 50,
                 Category = Category.web,
                 Flag = "Muffin{897ja}",
                 Hints = new List<Hint>()
@@ -93,7 +89,6 @@ namespace MuffinCTF.Database
             {
                 Name = "4",
                 Description = "",
-                Points = 50,
                 Category = Category.web,
                 Flag = "Muffin{897ja}",
                 Hints = new List<Hint>()

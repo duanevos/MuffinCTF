@@ -40,6 +40,10 @@
             <img src="img/Audiography.png" style="width: 48px; height:auto;">
             Audiography
         </div>
+        <div @onclick=@(() => OnClick("leaderboard")) @ondblclick=@(() => Challenges.OnDblClick("leaderboard")) class="ml-12 flex flex-col items-center @(showBorder == "leaderboard" ? "border-b-2 border-dashed" : "")">
+            <img src="img/Leaderboard.png" style="width: 48px; height:auto;">
+            Leaderboard
+        </div>
     </div>
 </div>
 

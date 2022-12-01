@@ -4,6 +4,7 @@
 @inject ICCService CCService
 @inject IChallengeService ChallengeService
 @using MuffinCTF.Components.Challenges
+@using MuffinCTF.Components.Leaderboard
 @page "/challenges"
 
 @if (loading)
@@ -25,9 +26,18 @@ else
             }
             else
             {
-                <div class="overflow-hidden">
-                    <CategoryWindow />
-                </div>
+                @if (!showCategory.Equals("leaderboard"))
+                {
+                    <div class="overflow-hidden">
+                        <CategoryWindow />
+                    </div>
+                }
+                else
+                {
+                    <div class="overflow-hidden">
+                        <Leaderboard />
+                    </div>
+                }
             }
         }
     </CascadingValue>
@@ -36,7 +46,7 @@ else
 @code {
     //Used for conditional rendering
     private bool loading = true;
-    private bool completedFirstChallenge = false;
+    private bool completedFirstChallenge;
     public string showCategory = "";
     public bool showIcons = true;
 
@@ -54,16 +64,8 @@ else
         if (firstRender)
         {
             await HandleCookie();
+            if (User != null) completedFirstChallenge = await CCService.CheckIfCompleted(1, User.Id);
         }
-    }
-
-    public async Task OnFlagCorrectSubmit(Challenge challenge)
-    {
-        await HandleCookie();
-        await CCService.AddCompletedChallenge(challenge.Id, User!.Id);
-        await UserService.UpdateUserScore(User);
-        completedFirstChallenge = true;
-        StateHasChanged();
     }
 
     public void OnDblClick(string category)
@@ -81,12 +83,12 @@ else
         StateHasChanged();
     }
 
-    private async Task HandleCookie()
+    public async Task HandleCookie()
     {
         var tokenCookie = await cookie.GetValue("token");
         var usernameCookie = await cookie.GetValue("user");
         var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
-        
+
         if (tokenCookie != string.Empty &&
             usernameCookie != string.Empty &&
             user is not null
@@ -97,7 +99,7 @@ else
             User = user;
             StateHasChanged();
         }
-        
+
         else
         {
             NavigationManager.NavigateTo("/login");

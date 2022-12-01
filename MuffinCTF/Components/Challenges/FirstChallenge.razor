@@ -1,4 +1,7 @@
 ﻿@inject IChallengeService ChallengeService
+@inject ICCService CCService
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
 <div class="flex justify-center items-center h-screen">
     <div class="window h-fit w-1/2">
@@ -37,7 +40,7 @@
                     <div class="mt-0">
                         <input @bind=flag class="TextBox w-1/3 py-2 px-3 text-stone-900" id="username" type="text" placeholder="Flag">
                     </div>
-                    <button @onclick=@validateFlag class="p-1 mt-1 w-1/3">Submit Flag</button>
+                    <button @onclick=@(async() => await validateFlag()) class="p-1 mt-1 w-1/3">Submit Flag</button>
                 </div>
             </div>
         </div>
@@ -56,11 +59,14 @@
         firstChallenge = await ChallengeService.GetChallenge(1);
     }
 
-    private void validateFlag()
+    private async Task validateFlag()
     {
         if (flag == firstChallenge!.Flag)
         {
-            Challenges!.OnFlagCorrectSubmit(firstChallenge);
+            await Challenges.HandleCookie();
+            await CCService.AddCompletedChallenge(firstChallenge.Id, Challenges.User.Id);
+            await UserService.UpdateUserScore(Challenges.User);
+            NavigationManager.NavigateTo("/challenges", true);
         }
         else
         {

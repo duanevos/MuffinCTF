@@ -38,7 +38,7 @@
 @code {
     private string flag { get; set; } = "";
     [CascadingParameter]
-    public Challenges Challenges { get; set; }
+    public CategoryWindow CategoryWindow { get; set; }
     [Parameter]
     public Challenge challenge { get; set; }
     [Parameter]
@@ -48,9 +48,11 @@
 
     private async Task validateFlag()
     {
+
+
         if (flag == challenge.Flag)
         {
-            await Challenges.OnFlagCorrectSubmit(challenge);
+            throw new NotImplementedException();
         }
         else
         {

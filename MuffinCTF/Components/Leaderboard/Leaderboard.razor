@@ -1,0 +1,63 @@
+﻿@inject IUserService UserService
+
+<PageTitle>Leaderboard</PageTitle>
+
+<div class="flex justify-center items-center h-screen">
+    <div class="window h-fit w-fit">
+        <div class="title-bar">
+            <div class="title-bar-text">
+                Leaderboard
+            </div>
+            <div class="title-bar-controls bg-neutral-300">
+                <button @onclick=@(() => Challenges.OnCloseClick()) aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="font-bold text-center text-base flex flex-col items-center justify-center">
+                <table class="w-1/2">
+                    <thead class="border-b border-neutral-300">
+                        <tr>
+                            <th class="px-6 py-1">
+                               # 
+                            </th>
+                            <th class="px-6 py-1">
+                                Username
+                            </th>
+                            <th class="px-6 py-1">
+                                Points
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < userList.Count; i++)
+                        {
+                            <tr>
+                                <td class="px-6 py-0.5">
+                                    @i
+                                </td>
+                                <td class="px-6 py-0.5">
+                                    @userList[i].Username
+                                </td>
+                                <td class="px-6 py-0.5">
+                                    @userList[i].Points
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    [CascadingParameter]
+    public Challenges Challenges { get; set; }
+    private List<User> userList { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        var result = UserService.GetAllUsers();
+        if (result != null) userList = result.OrderByDescending(x => x.Points).ToList();
+    }
+}
