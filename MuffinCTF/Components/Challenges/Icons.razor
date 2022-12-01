@@ -14,27 +14,27 @@
         </pre>
     </div>
     <div class="flex flex-row mt-16">
-        <div @ondblclick=@(() => Challenges.OnDblClick("cryptography")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("cryptography")) @ondblclick=@(() => Challenges.OnDblClick("cryptography")) class="ml-12 flex flex-col items-center @(showBorder == "cryptography" ? "border-b-2 border-dashed" : "")">
             <img src="img/Cryptography.png" style="width: 48px; height:auto;">
             Cryptography
         </div>
-        <div @ondblclick=@(() => Challenges.OnDblClick("osint")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("osint")) @ondblclick=@(() => Challenges.OnDblClick("osint")) class="ml-12 flex flex-col items-center @(showBorder == "osint" ? "border-b-2 border-dashed" : "")">
             <img src="img/OSINT.png" style="width: 48px; height:auto;">
             OSINT
         </div>
-        <div @ondblclick=@(() => Challenges.OnDblClick("reversing")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("reversing")) @ondblclick=@(() => Challenges.OnDblClick("reversing")) class="ml-12 flex flex-col items-center @(showBorder == "reversing" ? "border-b-2 border-dashed" : "")">
             <img src="img/Reversing.png" style="width: 48px; height:auto;">
             Reversing
         </div>
-        <div @ondblclick=@(() => Challenges.OnDblClick("steganography")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("steganography")) @ondblclick=@(() => Challenges.OnDblClick("steganography")) class="ml-12 flex flex-col items-center @(showBorder == "steganography" ? "border-b-2 border-dashed" : "")">
             <img src="img/Steganography.png" style="width: 48px; height:auto;">
             Steganography
         </div>
-        <div @ondblclick=@(() => Challenges.OnDblClick("web")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("web")) @ondblclick=@(() => Challenges.OnDblClick("web")) class="ml-12 flex flex-col items-center @(showBorder == "web" ? "border-b-2 border-dashed" : "")">
             <img src="img/Web.png" style="width: 48px; height:auto;">
             Web
         </div>
-        <div @ondblclick=@(() => Challenges.OnDblClick("audiography")) class="ml-12 flex flex-col items-center">
+        <div @onclick=@(() => OnClick("audiography")) @ondblclick=@(() => Challenges.OnDblClick("audiography")) class="ml-12 flex flex-col items-center @(showBorder == "audiography" ? "border-b-2 border-dashed" : "")">
             <img src="img/Audiography.png" style="width: 48px; height:auto;">
             Audiography
         </div>
@@ -42,10 +42,14 @@
 </div>
 
 @code {
+    private string showBorder = "";
+
     [CascadingParameter]
     public Challenges Challenges { get; set; }
 
-
+    private void OnClick(string icon){
+        showBorder = icon;
+    }
 
 
 }

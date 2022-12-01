@@ -1,4 +1,4 @@
-﻿<div class="flex items-center justify-center h-screen w-screen">
+﻿<div class="flex items-center justify-center h-screen w-screen overflow-hidden">
     <div class="window h-1/2 w-1/2">
         <div class="title-bar w-full flex flex-row">
             <div class="title-bar-text">
@@ -6,7 +6,7 @@
             </div>
             <div class="flow-root">
                 <div @onclick=@(() => Challenges.OnCloseClick()) class="bg-neutral-300 hover:bg-neutral-200 float-right w-4 border text-center font-black">
-                    X
+                    <span class="ml-0.5">X</span>
                 </div>
             </div>
         </div>

@@ -13,5 +13,6 @@ namespace MuffinCTF.Domain.Models
         public string Flag { get; set; }
         public int Points { get; set; }
         public ICollection<CompletedChallenges> CompletedChallenges { get; set; }
+        public List<Hint> Hints { get; set; }
     }
 }
