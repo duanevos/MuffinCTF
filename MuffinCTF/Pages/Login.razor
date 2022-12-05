@@ -79,12 +79,9 @@ else
         if (firstRender)
         {
             var tokenCookie = await Cookie.GetValue("token");
-            var usernameCookie = await Cookie.GetValue("user");
-            var user = await UserService.ValidateToken(tokenCookie, usernameCookie);
+            var user = await UserService.ValidateToken(tokenCookie);
 
-            if (tokenCookie != string.Empty &&
-                usernameCookie != string.Empty &&
-                user is not null)
+            if (tokenCookie != string.Empty &&user is not null)
             {
                 NavigationManager.NavigateTo("/challenges");
             }

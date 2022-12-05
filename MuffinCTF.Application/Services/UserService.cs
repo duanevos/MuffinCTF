@@ -51,13 +51,10 @@ namespace MuffinCTF.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task<User?> ValidateToken(string token, string username)
+        public async Task<User?> ValidateToken(string token)
         {
             var result = await _context.Users.FirstOrDefaultAsync(x => x.Token == token);
-
             if (result == null) return null;
-            if (result.Username != username) return null;
-
             return result;
         }
 

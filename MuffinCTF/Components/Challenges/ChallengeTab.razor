@@ -12,7 +12,7 @@
                 @foreach (Hint h in challenge.Hints)
                 {
                     <div class="flex mb-2 items-center text-center">
-                        <button @onclick=@(() => showHintId = h.Id) class="max-w-fit">@h.Text</button>
+                        <button @onclick=@(() => showHintId = h.Id) class="max-w-fit">Hint</button>
                     </div>
                 }
             </div>
@@ -30,7 +30,7 @@
             <div class="mt-0">
                 <input @bind=flag class="TextBox w-1/3 py-2 px-3 text-stone-900" id="username" type="text" placeholder="Flag">
             </div>
-            <button @onclick=@validateFlag class="p-1 mt-1 w-1/3">Submit Flag</button>
+            <button disabled="@loading" @onclick=@validateFlag class="p-1 mt-1 w-1/3">Submit Flag</button>
         </div>
     </div>
 </div>
@@ -43,20 +43,25 @@
     public Challenge challenge { get; set; }
     [Parameter]
     public int showHintId { get; set; }
+    private bool loading = false;
     private string errorMsg = "";
 
-
+    
     private async Task validateFlag()
     {
-
-
+        loading = true;
+        StateHasChanged();
         if (flag == challenge.Flag)
         {
-            throw new NotImplementedException();
+            await CategoryWindow.OnFlagCorrectSubmit(challenge);
+            loading = false;
+            StateHasChanged();
         }
         else
         {
             errorMsg = "Dirty Muffin, Incorrect!";
+            loading = false;
+            StateHasChanged();
         }
     }
 }
