@@ -20,7 +20,7 @@
             {
                 @foreach (Challenge c in challengeList)
                 {
-                    <button class="h-10 font-bold text-base" @onclick=@(() => OnChallengeClick(c))>C-@c.Name</button>
+                    <button class="h-10 font-bold p-2 text-base" @onclick=@(() => OnChallengeClick(c))>Challenge @c.Name</button>
                 }
                 @if (!string.IsNullOrEmpty(selectedChallenge))
                 {
