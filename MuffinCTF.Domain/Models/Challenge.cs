@@ -9,9 +9,10 @@ namespace MuffinCTF.Domain.Models
         public int Id { get; set; }
         public Category Category { get; set; }
         public string Name { get; set; }
+        public int Points { get; set; }
         public string Description { get; set; }
-        public string Flag { get; set; }
         public ICollection<CompletedChallenges> CompletedChallenges { get; set; }
         public List<Hint> Hints { get; set; }
+        public List<Flag> Flags { get; set; }
     }
 }

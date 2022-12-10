@@ -52,7 +52,7 @@
     {
         loading = true;
         StateHasChanged();
-        if (flag == challenge.Flag)
+        if (await ChallengeService.ValidateChallengeFlag(challenge, flag))
         {
             await CategoryWindow.OnFlagCorrectSubmit(challenge);
             loading = false;

@@ -14,16 +14,18 @@ namespace MuffinCTF.Application.Services
         public ChallengeService(CTFContext context)
         {
             _context = context;
-
-        }
-        public async Task<Challenge?> GetChallenge(int id)
-        {
-            return await _context.Challenges.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Challenge>?> GetChallengesByCategory(Category category)
         {
-            return await _context.Challenges.Where(x => x.Category == category).Include(x => x.Hints).ToListAsync();
+            return await _context.Challenges.Where(x => x.Category == category).Include(x => x.Hints).Include(x => x.Flags).ToListAsync();
+        }
+
+        public async Task<bool> ValidateChallengeFlag(Challenge challenge, string flag)
+        {
+            var result = await _context.Flags.FirstOrDefaultAsync(x => x.Challenge == challenge && x.FlagText == flag);
+            if (result != null) return true;
+            return false;
         }
 
     }

@@ -22,7 +22,8 @@ builder.Services.AddScoped<ICCService, CCService>();
 builder.Services.AddScoped<SeedDatabase>();
 
 //Seed database
-using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+using (IServiceScope scope = builder.Services.BuildServiceProvider()
+                                             .CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<CTFContext>();

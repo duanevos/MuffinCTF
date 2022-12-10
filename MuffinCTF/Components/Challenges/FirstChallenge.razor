@@ -29,7 +29,7 @@
                     <h4 class="mt-5 text-xl mb-1 text-blue-800 ">A freebie, your first flag &#128681; </h4>
                     <p class="mb-3">
                         <span class="cursor-text ">
-                            @firstChallenge.Flag
+                            @firstChallenge.Flags.FirstOrDefault().FlagText
                         </span>
                     </p>
 
@@ -56,12 +56,12 @@
     protected async override Task OnInitializedAsync()
     {
         var result = await ChallengeService.GetChallengesByCategory(Category.first);
-        if(result != null) firstChallenge = result.FirstOrDefault();
+        if (result != null) firstChallenge = result.FirstOrDefault();
     }
 
     private async Task validateFlag()
     {
-        if (flag == firstChallenge!.Flag)
+        if (await ChallengeService.ValidateChallengeFlag(firstChallenge, flag))
         {
             await Challenges.HandleCookie();
             await CCService.AddCompletedChallenge(firstChallenge.Id, Challenges.User.Id);

@@ -8,6 +8,8 @@ namespace MuffinCTF.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<CompletedChallenges> CompletedChallenges { get; set; }
+        public DbSet<Hint> Hints { get; set; }
+        public DbSet<Flag> Flags { get; set; }
 
         public CTFContext(DbContextOptions<CTFContext> options)
         : base(options)
