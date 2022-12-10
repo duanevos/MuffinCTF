@@ -35,8 +35,6 @@ using (IServiceScope scope = builder.Services.BuildServiceProvider()
     }
 }
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

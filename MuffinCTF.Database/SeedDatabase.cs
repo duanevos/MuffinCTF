@@ -34,9 +34,29 @@ namespace MuffinCTF.Database
                 Category = Category.first,
                 Flags = new List<Flag>() {
                     new Flag { FlagText = "Muffin{Lets_Get_Started}" }
-                }
+                },
+                Points = 25
             };
             _context.Add(first);
+
+            _context.AddRange(new List<Challenge>
+            {
+                new Challenge()
+                {
+                    Name = "1",
+                    Description = "After winning some games, Bobby decided to have a look at the Imperial Palace, he enjoyed the wonderfull park. Then, Bobby went to a place that took him back in time, where did Bobby go?",
+                    Category = Category.osint,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{national_museum_of_modern_art_tokyo}" },
+                        new Flag { FlagText = "Muffin{national_museum_of_modern_art}" }
+                    },
+                    Hints = new List<Hint>(){
+                        new Hint{ Text = "Science is not what we are looking for..." }
+                    },
+                    Points = 100,
+                }
+            });
 
             await _context.SaveChangesAsync();
         }

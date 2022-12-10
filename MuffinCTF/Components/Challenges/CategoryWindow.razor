@@ -65,10 +65,10 @@
     public async Task OnFlagCorrectSubmit(Challenge challenge)
     {
         selectedChallenge = "";
-        challengeList.Remove(challenge);
         await Challenges.HandleCookie();
         await CCService.AddCompletedChallenge(challenge.Id, Challenges.User.Id);
-        await UserService.UpdateUserScore(Challenges.User);
+        await UserService.UpdateUserScore(Challenges.User, challenge.Points);
+        challengeList.Remove(challenge);
         StateHasChanged();
     }
 

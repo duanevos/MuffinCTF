@@ -65,7 +65,7 @@
         {
             await Challenges.HandleCookie();
             await CCService.AddCompletedChallenge(firstChallenge.Id, Challenges.User.Id);
-            await UserService.UpdateUserScore(Challenges.User);
+            await UserService.UpdateUserScore(Challenges.User, firstChallenge.Points);
             NavigationManager.NavigateTo("/challenges", true);
         }
         else
