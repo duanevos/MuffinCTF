@@ -26,16 +26,16 @@ else
             }
             else
             {
-                @if (!showCategory.Equals("leaderboard"))
+                @if (showCategory.Equals("leaderboard"))
                 {
                     <div class="overflow-hidden">
-                        <CategoryWindow />
+                        <Leaderboard />
                     </div>
                 }
                 else
                 {
                     <div class="overflow-hidden">
-                        <Leaderboard />
+                        <CategoryWindow />
                     </div>
                 }
             }

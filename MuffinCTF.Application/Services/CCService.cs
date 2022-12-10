@@ -35,5 +35,6 @@ namespace MuffinCTF.Application.Services
             await _context.CompletedChallenges.AddAsync(completedChallenges);
             await _context.SaveChangesAsync();
         }
+
     }
 }
