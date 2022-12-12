@@ -15,6 +15,12 @@ builder.Services.AddDbContext<CTFContext>(options =>
     options.UseSqlite("Data Source = CTFdatabase.db");
 });
 
+//IIS Hosting
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
+
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICookie, Cookie>();
@@ -36,6 +42,10 @@ using (IServiceScope scope = builder.Services.BuildServiceProvider()
 }
 
 var app = builder.Build();
+
+//IIS hosting
+app.UsePathBase("/MuffinCTF");
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -7,7 +7,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7112;http://localhost:5112"
+      "applicationUrl": "https://localhost:7112;http://localhost:5112",
+      "launchUrl": "https://localhost:5112/MuffinCTF"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -29,6 +30,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:25261",
+      "launchUrl": "https://localhost:25261/MuffinCTF",
       "sslPort": 44337
     }
   }
