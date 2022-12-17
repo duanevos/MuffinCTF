@@ -20,21 +20,24 @@
                 }
             }
 
-            <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Hints</h2>
-            <div class="flex flex-auto justify-center space-x-2 w-full">
-                @foreach (Hint h in challenge.Hints)
-                {
-                    <div class="flex mb-2 items-center text-center">
-                        <button @onclick=@(() => showHintId = h.Id) class="max-w-fit">Hint</button>
-                    </div>
-                }
-            </div>
-            
-            @if (showHintId != 0)
+            @if (challenge.Hints != null && challenge.Hints.Count > 0)
             {
-                <p class="block mb-3">
-                    @challenge.Hints.First(x => x.Id == showHintId).Text
-                </p>
+                <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Hints (-50 points)</h2>
+                <div class="flex flex-auto justify-center space-x-2 w-full">
+                    @foreach (Hint h in challenge.Hints)
+                    {
+                        <div class="flex mb-2 items-center text-center">
+                            <button @ondblclick=@(() => OnHintClick(h.Id)) class="max-w-fit">Hint</button>
+                        </div>
+                    }
+                </div>
+
+                @if (showHintId != 0)
+                {
+                    <p class="block mb-3">
+                        @challenge.Hints.First(x => x.Id == showHintId).Text
+                    </p>
+                }
             }
             
             <div class="text-red-600 font-bold text-xl">
@@ -55,11 +58,21 @@
     public Challenge challenge { get; set; }
     [Parameter]
     public int showHintId { get; set; }
-    
+
     private int hintIndex = 0;
     private string flag { get; set; } = "";
     private bool loading = false;
     private string errorMsg = "";
+    private List<int> shownHints = new();
+
+    private void OnHintClick(int hintId)
+    {
+        showHintId = hintId;
+        if (!shownHints.Contains(hintId))
+        {
+            shownHints.Add(hintId);
+        }
+    }
 
     private async Task validateFlag()
     {
@@ -67,7 +80,7 @@
         StateHasChanged();
         if (await ChallengeService.ValidateChallengeFlag(challenge, flag))
         {
-            await CategoryWindow.OnFlagCorrectSubmit(challenge);
+            await CategoryWindow.OnFlagCorrectSubmit(challenge, shownHints.Count);
             loading = false;
             StateHasChanged();
         }

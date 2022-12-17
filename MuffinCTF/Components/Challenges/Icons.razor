@@ -17,10 +17,6 @@
             <img src="img/Reversing.png" style="width: 48px; height:auto;">
             Reversing
         </div>
-        <div @onclick=@(() => OnClick("steganography")) @ondblclick=@(() => Challenges.OnDblClick("steganography")) class="ml-12 flex flex-col items-center @(showBorder == "steganography" ? "border-b" : "")">
-            <img src="img/Steganography.png" style="width: 48px; height:auto;">
-            Steganography
-        </div>
         <div @onclick=@(() => OnClick("web")) @ondblclick=@(() => Challenges.OnDblClick("web")) class="ml-12 flex flex-col items-center @(showBorder == "web" ? "border-b" : "")">
             <img src="img/Web.png" style="width: 48px; height:auto;">
             Web
@@ -29,7 +25,14 @@
             <img src="img/Audiography.png" style="width: 48px; height:auto;">
             Audiography
         </div>
-        
+        <div @onclick=@(() => OnClick("pwn")) @ondblclick=@(() => Challenges.OnDblClick("pwn")) class="ml-12 flex flex-col items-center @(showBorder == "pwn" ? "border-b" : "")">
+            <img src="img/Pwn.png" style="width: 48px; height:auto;">
+            Pwn
+        </div>
+        <div @onclick=@(() => OnClick("steganography")) @ondblclick=@(() => Challenges.OnDblClick("steganography")) class="ml-12 flex flex-col items-center @(showBorder == "steganography" ? "border-b" : "")">
+            <img src="img/Steganography.png" style="width: 48px; height:auto;">
+            Steganography
+        </div>
     </div>
     <div class="flex flex-row mt-5 text-neutral-50">
         <div @onclick=@(() => OnClick("leaderboard")) @ondblclick=@(() => Challenges.OnDblClick("leaderboard")) class="ml-12 flex flex-col items-center @(showBorder == "leaderboard" ? "border-b" : "")">

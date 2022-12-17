@@ -62,12 +62,12 @@
         challengeList = challengeList.OrderBy(x => x.Name).ToList();
     }
 
-    public async Task OnFlagCorrectSubmit(Challenge challenge)
+    public async Task OnFlagCorrectSubmit(Challenge challenge, int ShownHintsCount)
     {
         selectedChallenge = "";
         await Challenges.HandleCookie();
         await CCService.AddCompletedChallenge(challenge.Id, Challenges.User.Id);
-        await UserService.UpdateUserScore(Challenges.User, challenge.Points);
+        await UserService.UpdateUserScore(Challenges.User, (challenge.Points - (50 * ShownHintsCount)));
         challengeList.Remove(challenge);
         StateHasChanged();
     }

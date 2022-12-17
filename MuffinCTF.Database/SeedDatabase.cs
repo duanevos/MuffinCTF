@@ -162,7 +162,7 @@ namespace MuffinCTF.Database
                         new Hint{ Text = "What is in the page source?" }
                     },
                     Points = 100,
-                    URL = ""
+                    URL = "https://bobbystravelingblog.up.railway.app/"
                 },
                 new Challenge()
                 {
@@ -177,7 +177,7 @@ namespace MuffinCTF.Database
                         new Hint{ Text = "Who do I want to be?" },
                     },
                     Points = 200,
-                    URL = ""
+                    URL = "https://bobbysmuffins.up.railway.app/"
                 },
                 new Challenge()
                 {
@@ -195,7 +195,7 @@ namespace MuffinCTF.Database
                         new Hint{ Text = "Emails can contain important things" }
                     },
                     Points = 300,
-                    URL = ""
+                    URL = "https://bankofmuffins.up.railway.app/"
                 }
             });
 
@@ -291,9 +291,68 @@ namespace MuffinCTF.Database
                     Category = Category.cryptography,
                     Flags = new List<Flag>()
                     {
+                        new Flag { FlagText = "Muffin{I_L0V3_CrYpto}" },
                     },
                     Points = 300,
                     URL = ""
+                }
+            });
+
+            //PWN
+            _context.AddRange(new List<Challenge>
+            {
+                new Challenge()
+                {
+                    Name = "1",
+                    Description = "Start the box via tryhackme",
+                    Category = Category.pwn,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{H4CK_TH3_W0RLD_321}" },
+                    },
+                    Points = 100,
+                    URL = "https://tryhackme.com/room/capturethemuffinspwn1"
+                },
+                new Challenge()
+                {
+                    Name = "2",
+                    Description = "Start the box via tryhackme",
+                    Category = Category.pwn,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{Y0u_D1d_g0oD_!_Nic3_PwN}" },
+                    },
+                    Points = 200,
+                    URL = "https://tryhackme.com/room/capturethemuffinspwn2"
+                },
+                new Challenge()
+                {
+                    Name = "3",
+                    Description = "Start the box via tryhackme",
+                    Category = Category.pwn,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{Apache_1s_S0_W3iRd}" },
+                    },
+                    Points = 300,
+                    URL = "https://tryhackme.com/room/capturethemuffinspwn3"
+                }
+            });
+
+            //Reversing
+            _context.AddRange(new List<Challenge>
+            {
+                new Challenge()
+                {
+                    Name = "1",
+                    Description = "Download the files and start reversing :)",
+                    Category = Category.reversing,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{Y0u_D1d_w3Ll}" },
+                    },
+                    Points = 100,
+                    URL = "https://tryhackme.com/room/capturethemuffinspwn1"
                 }
             });
 
