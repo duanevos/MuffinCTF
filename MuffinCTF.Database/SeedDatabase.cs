@@ -39,11 +39,60 @@ namespace MuffinCTF.Database
             };
             _context.Add(first);
 
+            //OSINT
             _context.AddRange(new List<Challenge>
             {
                 new Challenge()
                 {
                     Name = "1",
+                    Description = "Bobby went on vacation, but he totally forgot in which country he took this picture. Can you help him?",
+                    Category = Category.osint,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{japan}" },
+                    },
+                    Hints = new List<Hint>(){
+                        new Hint{ Text = "Reverse image search is so good now a days" }
+                    },
+                    Points = 100,
+                    URL = "osint1.png"
+                },
+                new Challenge()
+                {
+                    Name = "2",
+                    Description = "Bobby booked a room via the website down below to rest before his climbing activities. What is Bobby climbing?",
+                    Category = Category.osint,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{mt_fuji}" },
+                        new Flag { FlagText = "Muffin{fuji}" },
+                        new Flag { FlagText = "Muffin{mount_fuji}" }
+                    },
+                    Hints = new List<Hint>(){
+                        new Hint{ Text = "This looks like a mountain/vulcano" }
+                    },
+                    Points = 200,
+                    URL = "http://www.sunabashirikan.co.jp/",
+                },
+                new Challenge()
+                {
+                    Name = "3",
+                    Description = "After bobby's climbing adventures he needed something less exhausting, since Bobby loves playing games, he went to the most famous electronica district in Japan, what is the red building behind him called?",
+                    Category = Category.osint,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{gigo}"}
+                    },
+                    Hints = new List<Hint>(){
+                        new Hint{ Text = "What famous electionica district(s) are there?" },
+                        new Hint{ Text = "Google street view is your best friend" }
+                    },
+                    Points = 300,
+                    URL = "osint3.png"
+                },
+                new Challenge()
+                {
+                    Name = "4",
                     Description = "After winning some games, Bobby decided to have a look at the Imperial Palace, he enjoyed the wonderfull park. Then, Bobby went to a place that took him back in time, where did Bobby go?",
                     Category = Category.osint,
                     Flags = new List<Flag>()
@@ -54,9 +103,12 @@ namespace MuffinCTF.Database
                     Hints = new List<Hint>(){
                         new Hint{ Text = "Science is not what we are looking for..." }
                     },
-                    Points = 100,
-                }
-            });
+                    Points = 400,
+                },
+
+
+
+            });;
 
             await _context.SaveChangesAsync();
         }

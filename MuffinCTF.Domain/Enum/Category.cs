@@ -14,6 +14,7 @@ namespace MuffinCTF.Domain.Enum
         osint = 4,
         reversing = 5,
         steganography = 6,
-        web = 7
+        web = 7,
+        pwn = 8
     }
 }

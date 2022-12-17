@@ -7,6 +7,19 @@
         <h1 class="text-3xl text-blue-800 uppercase">&#129473; @challenge.Category @challenge.Name &#129473;</h1>
         <div class="w-11/12">
             @challenge.Description
+            
+            @if(!string.IsNullOrEmpty(challenge.URL)){
+                if (challenge.URL.StartsWith("http"))
+                {
+                    <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">URL</h2>
+                    <a href="@challenge.URL" class="text-blue-700">@challenge.URL</a>
+                } else
+                {
+                    <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Image</h2>
+                    <img src="img/@challenge.URL" alt="osint1">
+                }
+            }
+
             <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Hints</h2>
             <div class="flex flex-auto justify-center space-x-2 w-full">
                 @foreach (Hint h in challenge.Hints)
