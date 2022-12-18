@@ -30,7 +30,7 @@ else
                         <label class="block text-neutral-900 text-sm font-bold mb-2" for="username">
                             Username
                         </label>
-                        <input @bind=username class="TextBox w-full py-2 px-3 text-stone-900" id="username" type="text" placeholder="Username">
+                        <input @bind=username class="TextBox w-full py-2 px-3 text-stone-900" id="username" type="text" placeholder="Username" maxlength="32">
                     </div>
                     <div class="mb-3">
                         <label class="block text-neutral-900 text-sm font-bold mb-2" for="username">
@@ -121,10 +121,14 @@ else
 
     private async Task OnLoginClick()
     {
+        loading = true;
+        StateHasChanged();
         if (!ValidateInput()) return;
         if (!await UserService.Login(username, password))
         {
             errorMsg = "Failed to login, try again.";
+            loading = false;
+            StateHasChanged();
             return;
         }
         var tokenValue = BCrypt.Net.BCrypt.HashPassword(username);
