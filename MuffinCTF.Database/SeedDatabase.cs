@@ -32,7 +32,7 @@ namespace MuffinCTF.Database
             Challenge first = new()
             {
                 Name = "1",
-                Description = "You should give yourself around 2 minutes for each challenge. If you get stuck feel free to look at the hints provided to you or ask us for help!",
+                Description = "If you get stuck feel free to look at the hints provided to you or ask us for help. Double click hints to reveal them, BUT be aware they will cost you points! All flags the following prefix: Muffin{}",
                 Category = Category.first,
                 Flags = new List<Flag>() {
                     new Flag { FlagText = "Muffin{Lets_Get_Started}" }
@@ -47,7 +47,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "1",
-                    Description = "Bobby went on vacation, but he totally forgot in which country he took this picture. Can you help him? \n Lowercase flag",
+                    Description = "Bobby went on vacation, but he totally forgot in which country he took this picture. Can you help him? Flag format: Muffin{solution}\r\n Solution in lowercase",
                     Category = Category.osint,
                     Flags = new List<Flag>()
                     {
@@ -62,7 +62,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "2",
-                    Description = "Bobby booked a room via the website down below to rest before his climbing activities. What is Bobby climbing? \n Lowercase flag",
+                    Description = "Bobby booked a room via the website down below to rest before his climbing activities. What is Bobby climbing? Flag format: Muffin{solution_solution}\r\n Solution in lowercase",
                     Category = Category.osint,
                     Flags = new List<Flag>()
                     {
@@ -79,7 +79,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "3",
-                    Description = "After bobby's climbing adventures he needed something less exhausting, since Bobby loves playing games, he went to the most famous electronica district in Japan, what is the red building behind him called? \n Lowercase flag",
+                    Description = "After bobby's climbing adventures he needed something less exhausting, since Bobby loves playing games, he went to the most famous electronica district in Japan, what is the red building behind him called? Flag format: Muffin{solution}\r\n Solution in lowercase",
                     Category = Category.osint,
                     Flags = new List<Flag>()
                     {
@@ -95,7 +95,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "4",
-                    Description = "After winning some games, Bobby decided to have a look at the Imperial Palace, he enjoyed the wonderfull park. Then, Bobby went to a place that took him back in time, where did Bobby go? \n Lowercase flag",
+                    Description = "After winning some games, Bobby decided to have a look at the Imperial Palace, he enjoyed the wonderfull park. Then, Bobby went to a place that took him back in time, where did Bobby go? Flag format: Muffin{solution}\r\n Solution in lowercase",
                     Category = Category.osint,
                     Flags = new List<Flag>()
                     {
@@ -115,7 +115,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "1",
-                    Description = "I love using stegano in python ;) \n Lowercase flag",
+                    Description = "I love using stegano in python ;) Flag format: Muffin{solution}\r\n Solution in lowercase",
                     Category = Category.steganography,
                     Flags = new List<Flag>()
                     {
@@ -131,7 +131,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "2",
-                    Description = "Bobby booked a room via the website down below to rest before his climbing activities. What is Bobby climbing? \n Lowercase flag",
+                    Description = "Sometimes things are hidden in plain sight. Flag format: Muffin{solution}\r\n Solution in lowercase",
                     Category = Category.steganography,
                     Flags = new List<Flag>()
                     {
@@ -182,7 +182,9 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "3",
-                    Description = "Maybe you read it in the newspaper, my cousin Bobby is in trouble, he owes a lot of muffins to some shady people... He really doesn't deserve this, can you please try to help him (somehow...)? P.S. His muffins banking number is: Muff1n_334455 (50K muffins should be enough)",
+                    Description = "Maybe you read it in the newspaper, my cousin Bobby is in trouble, he owes a lot of money to shady people." +
+                                  " He really doesn't deserve this, can you please try to help him? " +
+                                  "P.S. His muffins banking number is: Muff1n_334455 (50K muffins should be enough)",
                     Category = Category.web,
                     Flags = new List<Flag>()
                     {
@@ -205,7 +207,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "1",
-                    Description = "Beep. Boop. Beep. Boop.Beep. Boop. Beep. Boop. Flag in lowercase.",
+                    Description = "Beep. Boop. Beep. Boop.Beep. Boop. Beep. Boop. Flag format: Muffin{solution}\r\n Solution in lowercase!",
                     Category = Category.audiography,
                     Flags = new List<Flag>()
                     {
@@ -220,7 +222,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "2",
-                    Description = "Sometimes it is good to visualize. Flag in lowercase.",
+                    Description = "Sometimes it is good to visualize. Flag format: Muffin{solution}\r\n Solution in lowercase!",
                     Category = Category.audiography,
                     Flags = new List<Flag>()
                     {
@@ -235,7 +237,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "3",
-                    Description = "Where are these sounds from? Flag in lowercase.",
+                    Description = "Where are these sounds from? Flag format: Muffin{country_restaurant}\r\n Solution in lowercase!",
                     Category = Category.audiography,
                     Flags = new List<Flag>()
                     {
@@ -257,7 +259,7 @@ namespace MuffinCTF.Database
                 new Challenge()
                 {
                     Name = "1",
-                    Description = "Is this the base I am expecting?",
+                    Description = "Is this the base I am expecting? Flag format: Muffin{solution}",
                     Category = Category.cryptography,
                     Flags = new List<Flag>()
                     {
@@ -267,12 +269,12 @@ namespace MuffinCTF.Database
                         new Hint{ Text = "This looks like base64" }
                     },
                     Points = 100,
-                    URL = ""
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:t:/g/personal/20089600_student_hhs_nl/EeQvCTN6wxVDh8941iymzP0Blp6GeF8SHzMK-7JVOnUqIA?e=TwwVYm"
                 },
                 new Challenge()
                 {
                     Name = "2",
-                    Description = "Rotation is key",
+                    Description = "Rotation is key! Flag format: Muffin{solution}",
                     Category = Category.cryptography,
                     Flags = new List<Flag>()
                     {
@@ -282,19 +284,19 @@ namespace MuffinCTF.Database
                         new Hint{ Text = "Is this what they call a caesar cipher?" },
                     },
                     Points = 200,
-                    URL = ""
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:t:/g/personal/20089600_student_hhs_nl/EVSTI6W5VzZLuxjQZhcQkhYBGKrENyjDo2mNLQp87iqYpg?e=U1VmiI"
                 },
                 new Challenge()
                 {
                     Name = "3",
-                    Description = "This secret text uses XOR with a single byte, but luckily no one knows it, so it will stay secure forever.",
+                    Description = "This secret text uses XOR with a single byte, but luckily no one knows it, so it will stay secure forever. Flag format: Muffin{solution}",
                     Category = Category.cryptography,
                     Flags = new List<Flag>()
                     {
                         new Flag { FlagText = "Muffin{I_L0V3_CrYpto}" },
                     },
                     Points = 300,
-                    URL = ""
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:t:/g/personal/20089600_student_hhs_nl/EXWJm-MiBgZBrboXbv3s3R0B4soFzTx7EerxklOwHcYBeQ?e=T7cA3S"
                 }
             });
 
@@ -310,6 +312,10 @@ namespace MuffinCTF.Database
                     {
                         new Flag { FlagText = "Muffin{H4CK_TH3_W0RLD_321}" },
                     },
+                    Hints = new List<Hint>()
+                    {
+                        new Hint{ Text = "Did you look for SUID binaries?" },
+                    },
                     Points = 100,
                     URL = "https://tryhackme.com/room/capturethemuffinspwn1"
                 },
@@ -322,6 +328,11 @@ namespace MuffinCTF.Database
                     {
                         new Flag { FlagText = "Muffin{Y0u_D1d_g0oD_!_Nic3_PwN}" },
                     },
+                    Hints = new List<Hint>()
+                    {
+                        new Hint{ Text = "root is probably the file owner" },
+                        new Hint{ Text = "Ssh has a special parameter for this file" }
+                    },
                     Points = 200,
                     URL = "https://tryhackme.com/room/capturethemuffinspwn2"
                 },
@@ -333,6 +344,11 @@ namespace MuffinCTF.Database
                     Flags = new List<Flag>()
                     {
                         new Flag { FlagText = "Muffin{Apache_1s_S0_W3iRd}" },
+                    },
+                    Hints = new List<Hint>()
+                    {
+                        new Hint{ Text = "What dangerous file are we able to upload?" },
+                        new Hint{ Text = "Interactive shells are important" }
                     },
                     Points = 300,
                     URL = "https://tryhackme.com/room/capturethemuffinspwn3"
@@ -352,10 +368,9 @@ namespace MuffinCTF.Database
                         new Flag { FlagText = "Muffin{Y0u_D1d_w3Ll}" },
                     },
                     Points = 100,
-                    URL = "https://tryhackme.com/room/capturethemuffinspwn1"
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:u:/g/personal/20089600_student_hhs_nl/EbMpKxmS7UlAonZzTdnZAwkBVjyGq_QsAK8Xu2slx5kCTQ?e=FLEJCC"
                 }
             });
-
             await _context.SaveChangesAsync();
         }
     }

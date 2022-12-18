@@ -38,6 +38,12 @@ else
                         </label>
                         <input @bind=password class="TextBox w-full py-2 px-3 text-stone-900" id="username" type="password" placeholder="Password">
                     </div>
+                    <div class="mb-3">
+                        <label class="block text-neutral-900 text-sm font-bold mb-2" for="username">
+                            Secret
+                        </label>
+                        <input @bind=secret class="TextBox w-full py-2 px-3 text-stone-900" id="username" type="text" placeholder="Secret" maxlength="4">
+                    </div>
                     <div class="flex items-center text-neutral-900 font-bold justify-between">
                         <button @onclick="OnLoginClick" class="TextBox w-1/3" type="button">
                             Login
@@ -61,6 +67,7 @@ else
     private string password = "";
     private string errorMsg = "";
     private bool loading = true;
+    private string secret = "";
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -68,7 +75,7 @@ else
         {
             var tokenCookie = await Cookie.GetValue("token");
             var user = await UserService.ValidateToken(tokenCookie);
-            
+
             if (tokenCookie != string.Empty && user is not null)
             {
                 NavigationManager.NavigateTo("/challenges");
@@ -86,6 +93,11 @@ else
         if (username == "" || password == "")
         {
             errorMsg = "Please enter a username and password";
+            return false;
+        }
+        if (secret != "4324")
+        {
+            errorMsg = "Incorrect secret";
             return false;
         }
         return true;

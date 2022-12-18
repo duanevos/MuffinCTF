@@ -12,11 +12,13 @@
                 if (challenge.URL.StartsWith("http"))
                 {
                     <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">URL</h2>
-                    <a href="@challenge.URL" class="text-blue-700">@challenge.URL</a>
+                    <a href="@challenge.URL" class="text-blue-700">URL</a>
                 } else
                 {
-                    <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Image</h2>
-                    <img src="img/@challenge.URL" alt="osint1">
+                    <div class="flex flex-col items-center text-center justify-center w-full">
+                        <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Image</h2>
+                        <img src="img/@challenge.URL" style="width: 256px; height: auto;" alt="osint1">
+                    </div>
                 }
             }
 
@@ -44,7 +46,7 @@
                 @errorMsg
             </div>
 
-            <h2>Points</h2>
+            <h2 class="mt-5 text-2xl mb-1 font-bold text-blue-800">Points</h2>
             <div>@challenge.Points</div>
 
             <div class="mt-0">
