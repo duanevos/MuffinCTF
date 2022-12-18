@@ -32,5 +32,16 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        Blazor.start({
+            configureSignalR: function (builder) {
+                let c = builder.build();
+                c.serverTimeoutInMilliseconds = 60000;
+                builder.build = () => {
+                    return c;
+                };
+            }
+        });
+    </script>
 </body>
 </html>
