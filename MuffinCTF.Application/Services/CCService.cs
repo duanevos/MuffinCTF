@@ -32,7 +32,7 @@ namespace MuffinCTF.Application.Services
                 ChallengeId = challengeId,
                 UserId = userId
             };
-            await _context.CompletedChallenges.AddAsync(completedChallenges);
+            _context.CompletedChallenges.Add(completedChallenges);
             await _context.SaveChangesAsync();
         }
 

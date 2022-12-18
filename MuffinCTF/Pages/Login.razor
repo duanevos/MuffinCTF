@@ -105,10 +105,14 @@ else
 
     private async Task OnRegisterClick()
     {
+        loading = true;
+        StateHasChanged();
         if (!ValidateInput()) return;
         if (!await UserService.Register(username, password))
         {
             errorMsg = "Failed to register, try again.";
+            loading = false;
+            StateHasChanged();
             return;
         }
         await UserService.Register(username, password);
