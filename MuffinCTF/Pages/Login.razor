@@ -90,6 +90,8 @@ else
 
     private bool ValidateInput()
     {
+        loading = true;
+        StateHasChanged();
         if (username == "" || password == "")
         {
             errorMsg = "Please enter a username and password";
@@ -97,6 +99,8 @@ else
         }
         if (secret != "4324")
         {
+            loading = false;
+            StateHasChanged();
             errorMsg = "Incorrect secret";
             return false;
         }

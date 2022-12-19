@@ -369,6 +369,30 @@ namespace MuffinCTF.Database
                     },
                     Points = 100,
                     URL = "https://dehaagsehogeschool-my.sharepoint.com/:u:/g/personal/20089600_student_hhs_nl/EbMpKxmS7UlAonZzTdnZAwkBVjyGq_QsAK8Xu2slx5kCTQ?e=FLEJCC"
+                },
+                new Challenge()
+                {
+                    Name = "2",
+                    Description = "nc 95.179.130.65 4444",
+                    Category = Category.reversing,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{R3verse_Th3_W0rld}" }, 
+                    },
+                    Points = 150,
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:u:/g/personal/20089600_student_hhs_nl/EbMpKxmS7UlAonZzTdnZAwkBVjyGq_QsAK8Xu2slx5kCTQ?e=FLEJCC"
+                },
+                new Challenge()
+                {
+                    Name = "3",
+                    Description = "nc 95.179.130.65 5555",
+                    Category = Category.reversing,
+                    Flags = new List<Flag>()
+                    {
+                        new Flag { FlagText = "Muffin{Y0u_Sh0uld_Pass_th1s_min0r}" },
+                    },
+                    Points = 200,
+                    URL = "https://dehaagsehogeschool-my.sharepoint.com/:u:/g/personal/20089600_student_hhs_nl/EbMpKxmS7UlAonZzTdnZAwkBVjyGq_QsAK8Xu2slx5kCTQ?e=FLEJCC"
                 }
             });
             await _context.SaveChangesAsync();
