@@ -40,7 +40,7 @@ namespace MuffinCTF.Database
                 Points = 25
             };
             _context.Add(first);
-
+            /*
             //OSINT
             _context.AddRange(new List<Challenge>
             {
@@ -395,6 +395,7 @@ namespace MuffinCTF.Database
                     URL = "https://dehaagsehogeschool-my.sharepoint.com/:u:/g/personal/20089600_student_hhs_nl/EbMpKxmS7UlAonZzTdnZAwkBVjyGq_QsAK8Xu2slx5kCTQ?e=FLEJCC"
                 }
             });
+            */
             await _context.SaveChangesAsync();
         }
     }
