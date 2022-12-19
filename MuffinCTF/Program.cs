@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+/*
 builder.Services.AddServerSideBlazor()
     .AddHubOptions(options =>
     {
@@ -19,8 +21,8 @@ builder.Services.AddDbContext<CTFContext>(options =>
 {
     options.UseSqlite("Data Source = CTFdatabase.db");
 });
-
-builder.Services.AddResponseCaching();
+*/
+//builder.Services.AddResponseCaching();
 
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -58,7 +60,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseResponseCaching();
+
+//app.UseResponseCaching();
 
 app.UseStaticFiles();
 
